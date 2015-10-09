@@ -12,6 +12,7 @@
         <module>twitter</module>
         <module>amazon</module>
         <module>common</module>
+        <module>monitor</module>
     </modules>
 
     <dependencies>
