@@ -29,6 +29,25 @@ public class MonitoringBotHelperLoad extends MonitoringEvent {
         this.helperName = helperName;
     }
 
+    public MonitoringBotHelperLoad(String json) {
+        super(json);
+        this.loadTime = this.jsonObject.optLong(KEY_LOAD_TIME);
+        this.success = this.jsonObject.optBoolean(KEY_SUCESS);
+        this.helperName = this.jsonObject.optString(KEY_HELPER_NAME);
+    }
+
+    public Long getLoadTime() {
+        return loadTime;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getHelperName() {
+        return helperName;
+    }
+
     @Override
     public String toJsonString() {
         JSONObject jsonObject = getBaseJson(this.getClass());

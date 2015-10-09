@@ -23,6 +23,10 @@ public class MonitoringEndEvent extends MonitoringEvent {
         this.endDate = endDate;
     }
 
+    public MonitoringEndEvent(String json) {
+        super(json);
+    }
+
     @Override
     public String toJsonString() {
         JSONObject jsonObject = getBaseJson(this.getClass());

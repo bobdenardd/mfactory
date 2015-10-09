@@ -27,6 +27,15 @@ public class MonitoringAlertEvent extends MonitoringEvent {
         this.content = content;
     }
 
+    public MonitoringAlertEvent(String json) {
+        super(json);
+        this.content = this.jsonObject.optString(KEY_CONTENT);
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
     @Override
     public String toJsonString() {
         JSONObject jsonObject = getBaseJson(this.getClass());
