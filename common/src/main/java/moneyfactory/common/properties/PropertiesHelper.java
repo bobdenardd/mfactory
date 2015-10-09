@@ -14,22 +14,14 @@ import java.util.Properties;
  *         Last: 06/10/2015 17:28
  * @version $Id$
  */
-public class PropertiesHelper implements MoneyFactoryProperties {
+public abstract class PropertiesHelper {
 
     private static final Logger LOGGER = Logger.getLogger(PropertiesHelper.class);
 
-    private static final String PROPERTIES_FILE_PROP_NAME       = "properties";
-    private static final String DEFAULT_PROPERTIES_FILE_NAME    = "moneyfactory.properties";
+    protected static Properties properties = new Properties();
 
-    private static Properties properties = new Properties();
-
-
-    static {
-        init();
-    }
-
-    private static void init() {
-        File propertiesFile = new File(System.getProperty(PROPERTIES_FILE_PROP_NAME, DEFAULT_PROPERTIES_FILE_NAME));
+    protected static void init(String propertiesFileNameProperty, String defaultPropertiesFileName) {
+        File propertiesFile = new File(System.getProperty(propertiesFileNameProperty, defaultPropertiesFileName));
         if (propertiesFile.exists() && propertiesFile.length() > 0) {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Starting up from properties file " + propertiesFile.getAbsolutePath());
@@ -42,11 +34,7 @@ public class PropertiesHelper implements MoneyFactoryProperties {
         }
     }
 
-    public static String getPlateformThingRootName() {
-        return (String) getProperty(EnumAvailableProperties.PLATEFORM_THING_ROOTNAME);
-    }
-
-    private static Object getProperty(EnumAvailableProperties propertyDefinition) {
+    protected static Object getProperty(EnumAvailableProperties propertyDefinition) {
         String property = properties.getProperty(propertyDefinition.getPropertyName());
         if (propertyDefinition.getType().equals(String.class)) {
             return StringUtils.isNotEmpty(property) ? property : propertyDefinition.getDefaultValue();

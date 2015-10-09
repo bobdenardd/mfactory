@@ -9,7 +9,13 @@ package moneyfactory.common.properties;
  */
 public enum EnumAvailableProperties {
 
-    PLATEFORM_THING_ROOTNAME("plateformThingRootName", String.class, "moneyfactory");
+    PLATEFORM_THING_ROOTNAME("plateformThingRootName", String.class, "moneyfactory"),
+    BOT_CONSUMER_KEY("botConsumerKey", String.class, null),
+    BOT_CONSUMER_SECRET("botConsumerSecret", String.class, null),
+    BOT_ACCESS_TOKEN("botAccessToken", String.class, null),
+    BOT_ACCESS_TOKEN_SECRET("botAccessTokenSecret", String.class, null),
+    BOT_UNIQUE_ID("botUniqueId", String.class, null),
+    BOT_PUBLISHED_TWEETS_DB("publishedDb", String.class, "publishedTweets.dat");
 
     private String propertyName;
     private Class type;

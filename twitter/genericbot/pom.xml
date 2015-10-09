@@ -22,5 +22,10 @@
              <artifactId>twitter4j-core</artifactId>
              <version>[4.0,)</version>
          </dependency>
+         <dependency>
+             <groupId>moneyfactory</groupId>
+             <artifactId>genericsource</artifactId>
+             <version>1.0-SNAPSHOT</version>
+         </dependency>
      </dependencies>
 </project>
