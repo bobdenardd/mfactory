@@ -16,6 +16,7 @@ hs_err_pid*
 *.iml
 .idea
 bot.properties
+monitor.properties
 publishedTweets.dat
 derby.log
 events_db

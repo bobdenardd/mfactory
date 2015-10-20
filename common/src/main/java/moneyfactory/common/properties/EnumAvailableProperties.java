@@ -21,7 +21,8 @@ public enum EnumAvailableProperties {
     BOT_PUBLISHED_TWEETS_DB("publishedDb", String.class, "publishedTweets.dat"),
 
     // Monitoring properties
-    MONITORING_TYPE("monitoringType", String.class, "dweet");
+    MONITORING_TYPE("monitoringType", String.class, "dweet"),
+    MONITORING_EMPTY_DB("emptyDb", Boolean.class, Boolean.FALSE);
 
     private String propertyName;
     private Class type;

@@ -23,4 +23,8 @@ public class MonitorPropertiesHelper extends PropertiesHelper {
         return (String) getProperty(EnumAvailableProperties.MONITORING_TYPE);
     }
 
+    public static boolean getMonitoringEmptyDB() {
+        return (Boolean) getProperty(EnumAvailableProperties.MONITORING_EMPTY_DB);
+    }
+
 }

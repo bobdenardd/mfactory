@@ -2,10 +2,14 @@ package moneyfactory.common.monitoring.model.events;
 
 import moneyfactory.common.json.Jsonable;
 import moneyfactory.common.monitoring.model.Monitorable;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,6 +23,8 @@ import java.util.UUID;
 public abstract class MonitoringEvent implements Jsonable {
 
     private static final Logger LOGGER = Logger.getLogger(MonitoringEvent.class);
+
+    public static final DateFormat FORMAT = new SimpleDateFormat("ddMMyyyy-HHmm");
 
     private static final String KEY_THING       = "thing";
     private static final String KEY_ALERTDATE   = "eventDate";
@@ -45,6 +51,13 @@ public abstract class MonitoringEvent implements Jsonable {
                 }
             };
             this.uuid = this.jsonObject.optString(KEY_UUID);
+            if(StringUtils.isNotEmpty(this.jsonObject.optString(KEY_ALERTDATE))) {
+                try {
+                    this.eventDate = FORMAT.parse(this.jsonObject.optString(KEY_ALERTDATE));
+                } catch(ParseException e) {
+                    LOGGER.error("Could not parse event date: " + this.jsonObject.optString(KEY_ALERTDATE));
+                }
+            }
         } catch(JSONException e) {
             LOGGER.error("Could not build monitoring event from json " + json, e);
             throw new JSONException(e);
@@ -59,10 +72,14 @@ public abstract class MonitoringEvent implements Jsonable {
         return this.uuid;
     }
 
+    public Date getEventDate() {
+        return this.eventDate;
+    }
+
     protected JSONObject getBaseJson(Class type) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(KEY_THING, this.thing.getThingUniqueName());
-        jsonObject.put(KEY_ALERTDATE, this.eventDate);
+        jsonObject.put(KEY_ALERTDATE, this.eventDate != null ? FORMAT.format(this.eventDate) : StringUtils.EMPTY);
         jsonObject.put(KEY_EVENT_TYPE, type.getName());
         jsonObject.put(KEY_UUID, UUID.randomUUID().toString());
         return jsonObject;
